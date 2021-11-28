@@ -1,12 +1,13 @@
 import socket
-server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 def initsocket(HOST, PORT):
     server.bind((HOST,PORT))
     
 def listenconn():
     server.listen()
-    return server.accept()
+    servertup = server.accept()
+    addrs = servertup[1]
+    return addrs
 
 def testsend(conn, addrs):
     with conn:
@@ -17,5 +18,8 @@ def testsend(conn, addrs):
                 break
             print(repr(data))
             conn.sendall(data)
+
+server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
 
 
