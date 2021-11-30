@@ -3,7 +3,7 @@ import tkinter as tk
 from tkinter import font
 import commands
 import socketworks
-import time
+import threading
 
 def initwindow(): # Function for initing the opening window
     window.rowconfigure([0,1], minsize=100, weight=1) #Set the window up for the opening screen
@@ -35,10 +35,10 @@ def makeHome():
 
 def startlisten():
     lbl_title.configure(font=('Arial, 25')) # Change font of label
-    holdtup = socketworks.listenconn() # Listen for connections, and save the return into tuple named holdtup
-    lbl_title.configure(text= "Found Connection at " + holdtup[0]) #Say where we found the connection
-    time.sleep(1) # Wait 1 second so you can read the address
-    makeHome() #Make the home screen 
+    socketworks.listenconn() # Listen for connections, and save the return into tuple named holdtup
+    lbl_title.configure(text= "Found Connection at " + socketworks.conn.getAddress()) #Say where we found the connection
+    timer = threading.Timer(3, makeHome)
+    timer.start()
 
 def buildFrames():
     #Code to build the Command Buttons Frame
@@ -72,8 +72,6 @@ def swapTerm():
     frm_commbuttons.grid_forget()
     frm_terminal.grid(row=1,column=0, sticky = "nsew")
 
-
-    
 
 terminalLines = [" "]
 
