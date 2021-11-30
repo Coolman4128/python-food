@@ -1,6 +1,6 @@
 #RAT MADE USING PYTHON 
 
-import commands
+import commands1
 import socketworks
 import guiworks
 
@@ -11,6 +11,11 @@ guiworks.initwindow() #Init the window to the opening screen
 guiworks.buildFrames()
 
 guiworks.window.mainloop() #Required for Tkninker events to be handled, meaning the rest of the functionality will be handled by tkninker functions.
+
+try:
+    socketworks.conn.conn.close()
+except:
+    pass
 
 
 

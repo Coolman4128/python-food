@@ -1,8 +1,11 @@
 import socket
+import threading
+import pickle
+import commands3
 
 class clientSocket:
     clientS = None
-    command = ""
+    recData = None
     address = ""
     port = ""
     def __init__(self, address1, port1):
@@ -20,11 +23,15 @@ class clientSocket:
                 continue  
             while 1:
                 try:
-                    self.command = self.clientS.recv(1024)
+                    self.recData = self.clientS.recv(1024)
                 except ConnectionResetError:
                     self.clientS.close()
                     break
-                self.command = self.command.decode()
+                self.recData = pickle.loads(self.recData)
+                output = commands3.checkCommand(self.recData)
+                self.clientS.send(output.encode())
+                
+
 
 
 

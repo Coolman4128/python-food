@@ -1,9 +1,11 @@
 import socket
+import pickle
+import commands1
 
 class SocketConnection:
     address = ""
     port = ""
-    conn = None
+    conn = socket.socket()
     def setAddressPort(self, Address, Port):
         self.address = Address
         self.port = Port
@@ -15,6 +17,10 @@ class SocketConnection:
 
     def setConnection(self, Connection):
         self.conn = Connection
+
+    def sendData(self, data):
+        changedData = pickle.dump(data)
+        self.conn.send(changedData)
 
 
 def initsocket(HOST, PORT):

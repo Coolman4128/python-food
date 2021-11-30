@@ -1,7 +1,7 @@
 from os import times
 import tkinter as tk
 from tkinter import font
-import commands
+import commands1
 import socketworks
 import threading
 
@@ -57,6 +57,8 @@ def updateTerminal():
     if len(terminalLines) > 27: # Check to see if a line needs to go "offscreen"
         terminalLines.pop(0)
     terminalLines.append(terminalText) #Add new line into the list
+    terminalOutput = commands1.processTerm(terminalText)
+    terminalLines.append(terminalOutput)
     terminalLines[-2] = terminalLines[-2] + "\n" #I hate new lines 
     ety_terminal.delete(0, tk.END) #Clear the enrty for more commands
     for item in terminalLines: #Create a single string with all the lists entries
